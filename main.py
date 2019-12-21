@@ -103,8 +103,8 @@ def test(test_loader, model, tools):
         target, label_flatten = target.cuda(), label_flatten.cuda()
 
         features= model[0](data)
-        heatmaps = model[1](features)
-        output, out_length = model[2](features[-1], heatmaps, target, length, True)
+        A = model[1](features)
+        output, out_length = model[2](features[-1], A, target, length, True)
         tools[2].add_iter(output, out_length, length, label)
     tools[2].show()
     Train_or_Eval(model, 'Train')
@@ -147,8 +147,8 @@ if __name__ == '__main__':
             target, label_flatten = target.cuda(), label_flatten.cuda()
             # net forward
             features = model[0](data)           
-            heatmaps = model[1](features)
-            output, attention_maps = model[2](features[-1], heatmaps, target, length)
+            A = model[1](features)
+            output, attention_maps = model[2](features[-1], A, target, length)
             # computing accuracy and loss 
             train_acc_counter.add_iter(output, length.long(), length, label)
             loss = criterion_CE(output, label_flatten)
