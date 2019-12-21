@@ -16,8 +16,7 @@ global_cfgs = {
 dataset_cfgs = {
     'dataset_train': lmdbDataset,
     'dataset_train_args': {
-        'roots': ['/media/wang/StoringDisk2/dataset/Scene_text_eng/dataset_recognition_training/nips_2014',
-                  '/media/wang/StoringDisk2/dataset/Scene_text_eng/dataset_recognition_training/cvpr_2016_loose_train'],
+        'roots': ['path/to/lmdb_ST', 'path/to/lmdb_SK'],
         'img_height': 32,
         'img_width': 128,
         'transform': transforms.Compose([transforms.ToTensor()]),
@@ -31,7 +30,7 @@ dataset_cfgs = {
 
     'dataset_test': lmdbDataset,
     'dataset_test_args': {
-        'roots': ['/media/wang/StoringDisk2/dataset/Scene_text_eng/dataset_recognition_testing/IIIT5K_test'],
+        'roots': ['path/to/lmdb_IIIT5K_test/or/any/other/test set'],
         'img_height': 32,
         'img_width': 128,
         'transform': transforms.Compose([transforms.ToTensor()]),
@@ -62,7 +61,7 @@ net_cfgs = {
     },
     'DTD': DTD,
     'DTD_args': {
-        'nclass': 38, # extra 2 classes for Unkonwn and end token
+        'nclass': 38, # extra 2 classes for Unkonwn and End-token
         'nchannel': 512,
         'dropout': 0.3,
     },
@@ -70,10 +69,6 @@ net_cfgs = {
     'init_state_dict_fe': 'models/scene/exp1_E4_I20000-239703_M0.pth',
     'init_state_dict_cam': 'models/scene/exp1_E4_I20000-239703_M1.pth',
     'init_state_dict_dtd': 'models/scene/exp1_E4_I20000-239703_M2.pth',
-
-    # 'init_state_dict_fe': None,
-    # 'init_state_dict_cam': None,
-    # 'init_state_dict_dtd': None,
 }
 
 optimizer_cfgs = {
@@ -85,7 +80,7 @@ optimizer_cfgs = {
 
     'optimizer_0_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_0_scheduler_args': {
-        'milestones': [5, 10],
+        'milestones': [3, 5],
         'gamma': 0.1,
     },
 
@@ -96,7 +91,7 @@ optimizer_cfgs = {
     },
     'optimizer_1_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_1_scheduler_args': {
-        'milestones': [5, 10],
+        'milestones': [3, 5],
         'gamma': 0.1,
     },
 
@@ -107,7 +102,7 @@ optimizer_cfgs = {
     },
     'optimizer_2_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_2_scheduler_args': {
-        'milestones': [5, 10],
+        'milestones': [3, 5],
         'gamma': 0.1,
     },
 }

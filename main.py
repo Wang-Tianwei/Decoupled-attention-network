@@ -25,15 +25,15 @@ def display_cfgs(models):
     for model in models:
         print(model)
 def flatten_label(target):
-    labels = []
+    label_flatten = []
     label_length = []
     for i in range(0, target.size()[0]):
         cur_label = target[i].tolist()
-        labels += cur_label[:cur_label.index(0)+1]
+        label_flatten += cur_label[:cur_label.index(0)+1]
         label_length.append(cur_label.index(0)+1)
-    labels = torch.LongTensor(labels)
+    label_flatten = torch.LongTensor(label_flatten)
     label_length = torch.IntTensor(label_length)
-    return (labels, label_length)
+    return (label_flatten, label_length)
 def Train_or_Eval(models, state = 'Train'):
     for model in models:
         if state == 'Train':
@@ -94,18 +94,18 @@ def test(test_loader, model, tools):
     Train_or_Eval(model, 'Eval')
     for sample_batched in test_loader:
         data = sample_batched['image'].squeeze(0)
-        label_strs = sample_batched['label']
-        target = tools[0].encode(label_strs)
+        label = sample_batched['label']
+        target = tools[0].encode(label)
 
         data = data.cuda()
         target = target
-        labels, length = tools[1](target)
-        target, labels = target.cuda(), labels.cuda()
+        label_flatten, length = tools[1](target)
+        target, label_flatten = target.cuda(), label_flatten.cuda()
 
         features= model[0](data)
         heatmaps = model[1](features)
         output, out_length = model[2](features[-1], heatmaps, target, length, True)
-        tools[2].add_iter(output, out_length, length, label_strs)
+        tools[2].add_iter(output, out_length, length, label)
     tools[2].show()
     Train_or_Eval(model, 'Train')
 #---------------------------------------------------------
@@ -143,15 +143,15 @@ if __name__ == '__main__':
             target = encdec.encode(label)
             Train_or_Eval(model, 'Train')
             data = data.cuda()
-            labels, length = flatten_label(target)
-            target, labels = target.cuda(), labels.cuda()
+            label_flatten, length = flatten_label(target)
+            target, label_flatten = target.cuda(), label_flatten.cuda()
             # net forward
             features = model[0](data)           
             heatmaps = model[1](features)
             output, attention_maps = model[2](features[-1], heatmaps, target, length)
             # computing accuracy and loss 
             train_acc_counter.add_iter(output, length.long(), length, label)
-            loss = criterion_CE(output, labels)
+            loss = criterion_CE(output, label_flatten)
             loss_counter.add_iter(loss)
             # update network
             Zero_Grad(model)

@@ -179,13 +179,13 @@ class DTD(nn.Module):
                         )
         self.char_embeddings = Parameter(torch.randn(nclass, nchannel))
 
-    def forward(self, features, A, text, text_length, test = False):
-        nB, nC, nH, nW = features.size()
+    def forward(self, feature, A, text, text_length, test = False):
+        nB, nC, nH, nW = feature.size()
         nT = A.size()[1]
         # Normalize
         A = A / A.view(nB, nT, -1).sum(2).view(nB,nT,1,1)
         # weighted sum
-        C = features.view(nB, 1, nC, nH, nW) * A.view(nB, nT, 1, nH, nW)
+        C = feature.view(nB, 1, nC, nH, nW) * A.view(nB, nT, 1, nH, nW)
         C = C.view(nB,nT,nC,-1).sum(3).transpose(1,0)
         C, _ = self.pre_lstm(C)
         C = F.dropout(C, p = 0.3, training=self.training)
@@ -194,7 +194,7 @@ class DTD(nn.Module):
             nsteps = int(text_length.max())
 
             gru_res = torch.zeros(C.size()).type_as(C.data)
-            out_res = torch.zeros(lenText, self.nclass).type_as(features.data)        
+            out_res = torch.zeros(lenText, self.nclass).type_as(feature.data)        
             out_attns = torch.zeros(lenText, nH, nW).type_as(A.data)
 
             hidden = torch.zeros(nB, self.nchannel).type_as(C.data)
@@ -218,7 +218,7 @@ class DTD(nn.Module):
         else:
             lenText = nT
             nsteps = nT
-            out_res = torch.zeros(lenText, nB, self.nclass).type_as(features.data)        
+            out_res = torch.zeros(lenText, nB, self.nclass).type_as(feature.data)        
 
             hidden = torch.zeros(nB, self.nchannel).type_as(C.data)
             prev_emb = self.char_embeddings.index_select(0, torch.zeros(nB).long().type_as(text.data))
@@ -240,7 +240,7 @@ class DTD(nn.Module):
                     out_length[j] = nsteps
 
             start = 0
-            output = torch.zeros(int(out_length.sum()), self.nclass).type_as(features.data)        
+            output = torch.zeros(int(out_length.sum()), self.nclass).type_as(feature.data)        
             for i in range(0, nB):
                 cur_length = int(out_length[i])
                 output[start : start + cur_length] = out_res[0: cur_length,i,:]

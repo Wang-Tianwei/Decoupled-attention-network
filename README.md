@@ -2,6 +2,8 @@
 
 This is a pytorch-based implementation for paper [Decoupled attention network for text recognition](https://arxiv.org/abs/1912.) (AAAI-2020).
 
+We will upload trained model parameters in the next few days.
+
 ## Requirements
 
 We recommend you to use [Anaconda](https://www.anaconda.com/) to manage your libraries.
@@ -14,7 +16,7 @@ We recommend you to use [Anaconda](https://www.anaconda.com/) to manage your lib
 - [Colour](https://pypi.org/project/colour/)
 - [LMDB](https://pypi.org/project/lmdb/)
 - [editdistance](https://pypi.org/project/editdistance/)
- 
+
 Or use [pip](https://pypi.org/project/pip/) to install the libraries. (Maybe the torch is different from the anaconda version. Please check carefully and fix the warnings in training stage if necessary.)
 
 ```bash
@@ -28,9 +30,9 @@ Here we provide the codes for IAM dataset. For RIMES, please prepare it by yours
 
 IAM database can be downloaded from [here](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database/download-the-iam-handwriting-database). 
 
-For convenience, we have provided the processed annotations and the dataloader (`dataset_hw.py`). You only need to download [data/lines](http://www.fki.inf.unibe.ch/DBs/iamDB/data/lines) and [data/words](http://www.fki.inf.unibe.ch/DBs/iamDB/data/words) then put the unzipped files into the folder `data/IAM/`.
+For convenience, we provide the processed annotations (in `data/IAM/`) and the dataloader (`dataset_hw.py`). You only need to download [data/lines](http://www.fki.inf.unibe.ch/DBs/iamDB/data/lines) and [data/words](http://www.fki.inf.unibe.ch/DBs/iamDB/data/words) then put the unzipped files into the folder `data/IAM/`.
 
-Note that all data is loaded into memory at once. Make sure there is enough memory.
+Note that all data is loaded into memory at once. Make sure there is enough memory (about 5 GB).
 
 ### Scene text
 Please convert your own dataset to **LMDB** format by using the [tool](https://github.com/bgshih/crnn/blob/master/tool/create_dataset.py) (run in **Python 2.7**) provided by [@Baoguang Shi](https://github.com/bgshih). 
@@ -45,7 +47,7 @@ The raw pictures of testing datasets can be found [here](https://github.com/chen
 
 ## Training and Testing
 
-Modify the path in configuration files (`cfgs_scene.py` for scene, `cfgs_hw.py` for handwritten). Make sure the import is correct in `main.py`. Then:
+Modify the path in configuration files (`cfgs_scene.py` for scene, `cfgs_hw.py` for handwritten). Make sure the import is correct in `line 12, main.py`. Then:
 
 ```bash
 	python main.py

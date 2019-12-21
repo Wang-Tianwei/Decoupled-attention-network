@@ -69,7 +69,6 @@ class LineGenerate():
             beginH = int(abs(self.conH-newH)/2)
             image = cv2.resize(image, (self.conW, newH))
             imageN[beginH:beginH+newH] = image
-
         label = self.label[idx]
 
         if self.augment and self.training:
