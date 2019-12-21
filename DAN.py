@@ -108,7 +108,7 @@ class CAM(nn.Module):
 
 class CAM_transposed(nn.Module):
 # In this version, the input channel is reduced to 1-D with sigmoid activation.
-# We find it leading to faster convergence in 1-D recognition.
+# We found that this leads to faster convergence for 1-D recognition.
     def __init__(self, scales, maxT, depth, num_channels):
         super(CAM_transposed, self).__init__()
         # cascade multiscale features
