@@ -93,7 +93,7 @@ def generate_optimizer(models):
 def test(test_loader, model, tools):
     Train_or_Eval(model, 'Eval')
     for sample_batched in test_loader:
-        data = sample_batched['image'].squeeze(0)
+        data = sample_batched['image']
         label = sample_batched['label']
         target = tools[0].encode(label)
 
