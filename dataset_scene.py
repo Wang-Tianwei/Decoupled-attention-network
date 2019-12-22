@@ -19,7 +19,7 @@ class lmdbDataset(Dataset):
         transform=None, global_state='Test'):
         self.envs = []
         self.nSamples = 0
-        self.perlen = []
+        self.lengths = []
         self.ratio = []
         self.global_state = global_state
         for i in range(0,len(roots)):
@@ -36,7 +36,7 @@ class lmdbDataset(Dataset):
             with env.begin(write=False) as txn:
                 nSamples = int(txn.get('num-samples'.encode()))
                 self.nSamples += nSamples
-            self.perlen.append(nSamples)
+            self.lengths.append(nSamples)
             self.envs.append(env)
 
         if ratio != None:
@@ -45,10 +45,10 @@ class lmdbDataset(Dataset):
                 self.ratio.append(ratio[i] / float(sum(ratio)))
         else:
             for i in range(0,len(roots)):
-                self.ratio.append(self.perlen[i] / float(self.nSamples))
+                self.ratio.append(self.lengths[i] / float(self.nSamples))
 
         self.transform = transform
-        self.maxlen = max(self.perlen)
+        self.maxlen = max(self.lengths)
         self.img_height = img_height
         self.img_width = img_width
         self.target_ratio = img_width / float(img_width)
@@ -90,7 +90,7 @@ class lmdbDataset(Dataset):
         fromwhich = self.__fromwhich__()
         if self.global_state == 'Train':
             index = random.randint(0,self.maxlen - 1)
-        index = index % self.perlen[fromwhich]
+        index = index % self.lengths[fromwhich]
         assert index <= len(self), 'index range error'
         index += 1
         with self.envs[fromwhich].begin(write=False) as txn:
@@ -109,7 +109,11 @@ class lmdbDataset(Dataset):
             if len(label) > 24 and self.global_state == 'Train':
                 print('sample too long')
                 return self[index + 1]
-            img = self.keepratio_resize(img)
+            try:
+                img = self.keepratio_resize(img)
+            except:
+                print('Size error for %d' % index)
+                return self[index + 1]
             img = img[:,:,np.newaxis]
             if self.transform:
                 img = self.transform(img)
