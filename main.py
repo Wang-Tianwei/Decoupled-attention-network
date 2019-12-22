@@ -138,7 +138,7 @@ if __name__ == '__main__':
     for nEpoch in range(0, cfgs.global_cfgs['epoch']):
         for batch_idx, sample_batched in enumerate(train_loader):
             # data prepare
-            data = sample_batched['image'].squeeze(0)
+            data = sample_batched['image']
             label = sample_batched['label']
             target = encdec.encode(label)
             Train_or_Eval(model, 'Train')
