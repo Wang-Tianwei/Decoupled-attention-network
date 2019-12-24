@@ -30,7 +30,7 @@ dataset_cfgs = {
 
     'dataset_test': lmdbDataset,
     'dataset_test_args': {
-        'roots': ['path/to/lmdb_IIIT5K_test/or/any/other/test set'],
+        'roots': ['path/to/lmdb_IIIT5K_test/or/any/other/testset'],
         'img_height': 32,
         'img_width': 128,
         'transform': transforms.Compose([transforms.ToTensor()]),
