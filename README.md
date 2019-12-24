@@ -58,10 +58,9 @@ Modify the path in configuration files (`cfgs_scene.py` for scene, `cfgs_hw.py` 
 ```
 @InProceedings{DAN_aaai20,
 author = {Tianwei Wang and Yuanzhi Zhu and Lianwen Jin and Canjie Luo and Xiaoxue Chen and Yaqiang Wu and Qianying Wang and Mingxiang Cai}, 
-title = {Decoupled attention network for text recognition}, 
-booktitle ={AAAI Conference on Artificial Intelligence}, 
-year = {2020}
-}
+    title = {Decoupled attention network for text recognition}, 
+    booktitle ={AAAI Conference on Artificial Intelligence}, 
+    year = {2020}}
 ```
 
 ## Attention
