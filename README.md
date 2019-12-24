@@ -1,6 +1,6 @@
 # Decoupled attention network for text recognition
 
-This is a pytorch-based implementation for paper [Decoupled attention network for text recognition](https://arxiv.org/abs/1912.) (AAAI-2020).
+This is a pytorch-based implementation for paper [Decoupled attention network for text recognition](https://arxiv.org/abs/1912.10205) (AAAI-2020).
 
 We will upload trained model parameters in the next few days.
 
