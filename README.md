@@ -24,6 +24,16 @@ Or use [pip](https://pypi.org/project/pip/) to install the libraries. (Maybe the
 ```
 Besides, a [data augmentation toolkit](https://github.com/Canjie-Luo/Scene-Text-Image-Transformer) is used for handwritten text recognition.
 
+## Updates
+
+Dec 30, 2019
+
+Trained models:
+
+[Google Drive](https://drive.google.com/drive/folders/1MK0WUH-ofIPT4ZNTbcb0sburatJyEF1X?usp=sharing)
+
+The handwritten models are well trained (IAM-CER 6.4, IAM-WER 19.6). The scene models are single-directional and not well trained (IIIT5K 93.3).
+
 ## Data Preparation
 ### Offline handwritten text
 Here we provide the codes for IAM dataset. For RIMES, please prepare it by yourself.
