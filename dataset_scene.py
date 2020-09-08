@@ -51,7 +51,7 @@ class lmdbDataset(Dataset):
         self.maxlen = max(self.lengths)
         self.img_height = img_height
         self.img_width = img_width
-        self.target_ratio = img_width / float(img_width)
+        self.target_ratio = img_width / float(img_height)
 
     def __fromwhich__(self ):
         rd = random.random()
