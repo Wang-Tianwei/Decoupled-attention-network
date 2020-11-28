@@ -24,6 +24,14 @@ Or use [pip](https://pypi.org/project/pip/) to install the libraries. (Maybe the
 Besides, a [data augmentation toolkit](https://github.com/Canjie-Luo/Scene-Text-Image-Transformer) is used for handwritten text recognition.
 
 ## Updates
+Nov 28, 2020
+
+Thanks to huizhang0110, we find a [bug](https://github.com/Wang-Tianwei/Decoupled-attention-network/issues/34) which results in higher performance on IAM dataset.
+
+The result on IAM dataset should be corrected as (CER 7.0, WER 20.6). 
+
+The conclusions is not affected.
+
 
 Dec 30, 2019
 
