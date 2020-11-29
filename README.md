@@ -30,7 +30,7 @@ Thanks to huizhang0110, we find a [bug](https://github.com/Wang-Tianwei/Decouple
 
 The result on IAM dataset should be corrected as (CER 7.0, WER 20.6). 
 
-The conclusions is not affected.
+Conclusions are not affected.
 
 
 Dec 30, 2019
